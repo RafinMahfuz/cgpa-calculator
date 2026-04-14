@@ -16,7 +16,7 @@ This tool allows students to **enter marks for each course**, automatically conv
 👉 **Use the Calculator Here**
 
 ```
-https://rafinmahfuz.github.io/CGPA-Calculator/
+https://rafinmahfuz.github.io/cgpa-calculator/
 ```
 
 ---
