@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ECE CGPA Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #3a7bd5, #3a6073);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 420px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .course {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            align-items: center;
+        }
+
+        select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>ECE CGPA Calculator(2nd Semester)</h2>
+
+        <div class="course">Circuits & Systems II (3) <select id="c1"></select></div>
+        <div class="course">C&S II Sessional (0.75) <select id="c2"></select></div>
+        <div class="course">OOP (3) <select id="c3"></select></div>
+        <div class="course">OOP Lab (1.5) <select id="c4"></select></div>
+        <div class="course">Analog Circuits (3) <select id="c5"></select></div>
+        <div class="course">Analog Lab (0.75) <select id="c6"></select></div>
+        <div class="course">Math 1217 (3) <select id="c7"></select></div>
+        <div class="course">Humanities (3) <select id="c8"></select></div>
+        <div class="course">Engineering Ethics (0.75) <select id="c9"></select></div>
+
+        <div class="result" id="cgpa">CGPA : 0.00</div>
+
+    </div>
+
+    <script>
+
+        const gradeMap = {
+            "A+": 4.00,
+            "A": 3.75,
+            "A-": 3.50,
+            "B+": 3.25,
+            "B": 3.00,
+            "B-": 2.75,
+            "C+": 2.50,
+            "C": 2.25,
+            "D": 2.00,
+            "F": 0
+        }
+
+        const credits = [3, 0.75, 3, 1.5, 3, 0.75, 3, 3, 0.75]
+
+        function populateGrades() {
+
+            let options = "<option value=''>Grade</option>"
+
+            for (let grade in gradeMap) {
+                options += `<option value="${gradeMap[grade]}">${grade}</option>`
+            }
+
+            for (let i = 1; i <= 9; i++) {
+                let select = document.getElementById("c" + i)
+                select.innerHTML = options
+                select.addEventListener("change", calculateCGPA)
+            }
+
+        }
+
+        function calculateCGPA() {
+
+            let totalPoints = 0
+            let totalCredits = 0
+
+            for (let i = 1; i <= 9; i++) {
+
+                let grade = parseFloat(document.getElementById("c" + i).value)
+
+                if (!isNaN(grade)) {
+                    totalPoints += grade * credits[i - 1]
+                    totalCredits += credits[i - 1]
+                }
+
+            }
+
+            let cgpa = totalCredits ? (totalPoints / totalCredits) : 0
+
+            document.getElementById("cgpa").innerText =
+                "CGPA : " + cgpa.toFixed(2)
+
+        }
+
+        populateGrades()
+
+    </script>
+
+</body>
+
+</html>
